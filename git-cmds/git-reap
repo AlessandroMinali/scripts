@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+echo "I'm the grim bloody reaper"
+git checkout $MASTER
+git branch | grep -v " $MASTER" | xargs git branch -D 
+git pull
+pkill -f puma rails
+bundle
+rails db:reset
+rails db:prepare
